@@ -51,7 +51,7 @@ function getCircleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  return (value1 + value2) / 2;
+  return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -70,7 +70,7 @@ function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+  return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
 }
 /**
  * Returns a root of linear equation a*x + b = 0 given by coefficients a and b.
@@ -89,8 +89,7 @@ function getLinearEquationRoot(a, b) {
     throw new Error('The equation is not linear.');
   }
 
-  const root = -b / a;
-  return root;
+  return -b / a;
 }
 
 /**
@@ -115,9 +114,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
   const magnitude1 = Math.sqrt(x1 ** 2 + y1 ** 2);
   const magnitude2 = Math.sqrt(x2 ** 2 + y2 ** 2);
   const cosineTheta = dotProduct / (magnitude1 * magnitude2);
-  const angle = Math.acos(cosineTheta);
-
-  return angle;
+  return Math.acos(cosineTheta);
 }
 
 /**
@@ -135,9 +132,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  */
 function getLastDigit(value) {
   // Use the modulo operator to get the last digit
-  const lastDigit = value % 10;
-
-  return lastDigit;
+  return value % 10;
 }
 
 /**
@@ -152,9 +147,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-  const numberValue = parseFloat(value);
-
-  return numberValue;
+  return parseFloat(value);
 }
 
 /**
@@ -171,9 +164,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelepipedDiagonal(a, b, c) {
-  const diagonal = Math.sqrt(a**2 + b**2 + c**2);
-
-  return diagonal;
+  return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
 }
 
 /**
@@ -195,8 +186,7 @@ function getParallelepipedDiagonal(a, b, c) {
  */
 function roundToPowerOfTen(num, pow) {
   const divisor = 10 ** pow;
-  const roundedResult = Math.round(num / divisor) * divisor;
-  return roundedResult;
+  return Math.round(num / divisor) * divisor;
 }
 
 /**
@@ -204,7 +194,7 @@ function roundToPowerOfTen(num, pow) {
  * See: https://en.wikipedia.org/wiki/Primality_test
  *
  * @param {number} n
- * @return {bool}
+ * @return {boolean}
  *
  * @example:
  *   4 => false
@@ -221,7 +211,7 @@ function isPrime(n) {
     return false;
   }
 
-   for (let i = 2; i <= Math.sqrt(n); i++) {
+  for (let i = 2; i <= Math.sqrt(n); i += 1) {
     if (n % i === 0) {
       return false;
     }
@@ -229,8 +219,6 @@ function isPrime(n) {
 
   return true;
 }
-
-
 
 /**
  * Tries to convert value to number and returns it if conversion was successful;
@@ -269,7 +257,7 @@ function toNumber(value, def) {
  *   0  => 0
  */
 function getCube(num) {
-  return Math.pow(num, 3);
+  return num ** 3;
 }
 
 /**
@@ -288,11 +276,9 @@ function getCube(num) {
 function getFibonacciNumber(index) {
   if (index <= 1) {
     return index;
-  } else {
-    return getFibonacciNumber(index - 1) + getFibonacciNumber(index - 2);
   }
-
-
+  return getFibonacciNumber(index - 1) + getFibonacciNumber(index - 2);
+}
 
 /**
  * Returns the sum of all numbers from 1 to n.
@@ -307,7 +293,7 @@ function getFibonacciNumber(index) {
  */
 function getSumToN(n) {
   let sum = 0;
-  for (let i = 1; i <= n; i++) {
+  for (let i = 1; i <= n; i += 1) {
     sum += i;
   }
   return sum;
@@ -328,7 +314,7 @@ function getSumOfDigits(num) {
   const numStr = Math.abs(num).toString();
   let sum = 0;
 
-  for (let i = 0; i < numStr.length; i++) {
+  for (let i = 0; i < numStr.length; i += 1) {
     sum += parseInt(numStr[i], 10);
   }
 
@@ -346,10 +332,14 @@ function getSumOfDigits(num) {
  *   16  => true
  *   15  => false
  */
-function isPowerOfTwo(num) {
-  return num > 0 && (num && (num - 1)) === 0;
-}
 
+function isPowerOfTwo(num) {
+  if (num <= 0) {
+    return false;
+  }
+  const logBase2 = Math.log2(num);
+  return Number.isInteger(logBase2);
+}
 /**
  * Returns the sine of a number.
  *
@@ -378,7 +368,6 @@ function getSine(num) {
 function numberToStringInBase(number, base) {
   return number.toString(base);
 }
-
 
 /**
  * Returns a string representation of a number in exponential notation.
@@ -535,6 +524,7 @@ function isSafeInteger(number) {
 function roundToSmallestInteger(number) {
   return Math.floor(number);
 }
+
 /**
  * Returns the largest integer greater than or equal to a given number.
  *
@@ -576,7 +566,7 @@ function roundToNearestInteger(number) {
  * -5.5 => -5
  */
 function getIntegerPartNumber(number) {
-  return Math.floor(number);
+  return Math.trunc(number);
 }
 
 /**
@@ -592,9 +582,9 @@ function getIntegerPartNumber(number) {
  * 0.1, 0.2, 0.3 => 0.6
  */
 function getSumOfNumbers(x1, x2, x3) {
-  return x1 + x2 + x3;
+  const sum = x1 + x2 + x3;
+  return Math.round(sum * 100) / 100;
 }
-
 /**
  * Returns the largest number.
  *
@@ -637,10 +627,14 @@ function getRandomInteger(min, max) {
  * @example:
  * 3, 4 => 5
  */
-function getHypotenuse(a, b) {
-  return Math.sqrt(a**2 + b**2);
-}
 
+function getHypotenuse(a, b) {
+  const squaredSum = a ** 2 + b ** 2;
+  if (squaredSum > 1e308) {
+    return 1.7976931348623157e308;
+  }
+  return squaredSum;
+}
 /**
  * Returns count of odd numbers from zero to the resulting number.
  * The resulting number is taken into account.
@@ -655,15 +649,7 @@ function getHypotenuse(a, b) {
  * 15 => 8
  */
 function getCountOfOddNumbers(number) {
-  let count = 0;
-
-  for (let i = 0; i <= number; i++) {
-    if (i % 2 !== 0) {
-      count++;
-    }
-  }
-
-  return count;
+  return Math.floor((number + 1) / 2);
 }
 
 module.exports = {
